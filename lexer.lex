@@ -7,15 +7,15 @@
     los tokens de la siguiente gramática:
 
     S ::= E;
-    E ::= E + E
-        | E - E
-        | E * E
-        | E / E
-        | E % E
-        | E ^ E
-        | - E
-        | (E)
-        | number
+    E ::= + EA
+        A= - EA
+        A= * EA
+        A= / EA
+        A= % EA
+        A= ^ EA
+        E = - EA
+        E= (E)A
+        E= numberA
 
     **** Cosas Importantes ****:
 
@@ -84,12 +84,56 @@ import java.io.IOException;
 
 SEMI = ";" // Definan aqui sus Tokens/ER por ejemplo: "el token SEMI"
 WHITE = (" "|\t|\n)
+PLUS ="+"
+MINUS="-"
+MULT="*"
+DIV="/"
+MOD="%"
+EXP="^"
+LPAREN="("
+RPAREN=")"
+NUMBER={digitos}+({punto}?{digitos}*)?({exponente}{signo}?{digitos}+)?
+ERROR="error"
+UNARY="~"
+
+signo   = [+-]
+digitos = [0-9]
+punto = [.]
+exponente = [eE]
+
 
 %%
 
 <YYINITIAL>{SEMI}   { return new Token(Token.SEMI);   }
 
 <YYINITIAL>{WHITE}  { /* NO HACER NADA */             }
+
+<YYINITIAL>{LPAREN}   { return new Token(Token.LPAREN);   }
+
+<YYINITIAL>{RPAREN}   { return new Token(Token.RPAREN);   }
+
+<YYINITIAL>{UNARY}   { return new Token(Token.UNARY);   }
+
+<YYINITIAL>{EXP}   { return new Token(Token.EXP);   }
+
+<YYINITIAL>{MULT}   { return new Token(Token.MULT);   }
+
+<YYINITIAL>{DIV}   { return new Token(Token.DIV);   }
+
+<YYINITIAL>{MOD}   { return new Token(Token.MOD);   }
+
+<YYINITIAL>{PLUS}   { return new Token(Token.PLUS);   }
+
+<YYINITIAL>{MINUS}   { return new Token(Token.MINUS);   }
+
+<YYINITIAL>{NUMBER}   { return new Token(Token.NUMBER, yytext());   }
+
+<YYINITIAL>{ERROR}   { return new Token(Token.ERROR);   }
+
+
+
+
+
 
 <YYINITIAL>.        { return new Token(Token.ERROR);
                       /* todo lo demas es ERROR */ }
