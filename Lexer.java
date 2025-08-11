@@ -4,15 +4,15 @@
     En este archivo ustedes tienen que crear un lexer que sea capaz de reconocer
     los tokens de la siguiente gramática:
     S ::= E;
-    E ::= S + E
-        | S - E
-        | S * E
-        | S / E
-        | S % E
-        | S ^ E
-        | - E
-        | (E)
-        | number
+    E ::A= + EA
+        A= - EA
+        A= * EA
+        A= / EA
+        A= % EA
+        A= ^ EA
+        E = - EA
+        E= (E)A
+        E= numberA
     **** Cosas Importantes ****:
     1. Lo que está en minúscula son terminales
     2. Lo que está en mayúscula son no terminales

@@ -133,7 +133,77 @@ public class Parser {
         return E() && term(Token.SEMI);
     }
 
+    private boolean A1() {
+        return term(Token.EXP) && E() && A();
+    }
+
+    private boolean A2() {
+        return term(Token.MULT) && E() && A();
+    }
+
+    private boolean A3() {
+        return term(Token.DIV) && E() && A();
+    }
+
+    private boolean A4() {
+        return term(Token.MOD) && E() && A();
+    }
+
+    private boolean A5() {
+        return term(Token.PLUS) && E() && A();
+    }
+
+    private boolean A6() {
+        return term(Token.MINUS) && E() && A();
+    }
+
+    private boolean A7() {
+        return true;
+    }
+
+    private boolean A() {
+        int save = next;
+
+        next = save;
+        if ( A1() ) { return true; }
+        next = save;
+        if ( A2() ) { return true; }
+        next = save;
+        if ( A3() ) { return true; }
+        next = save;
+        if ( A4() ) { return true; }
+        next = save;
+        if ( A5() ) { return true; }
+        next = save;
+        if ( A6() ) { return true; }
+        next = save;
+        if ( A7() ) { return true; }
+
+        return false; 
+    }
+
+    private boolean E1() {
+        return term(Token.LPAREN) && E() && term(Token.RPAREN) && A();
+    }
+
+    private boolean E2() {
+        return term(Token.UNARY) && E() && A();
+    }
+    
+    private boolean E3() {
+        return term(Token.NUMBER) && A();
+    }
+
     private boolean E() {
+        int save = next;
+
+        next = save;
+        if ( E1() ) { return true; }
+        next = save;
+        if ( E2() ) { return true; }
+        next = save;
+        if ( E3() ) { return true; }
+
         return false;
     }
 

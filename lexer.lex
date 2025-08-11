@@ -7,7 +7,7 @@
     los tokens de la siguiente gramática:
 
     S ::= E;
-    E ::= + EA
+    E ::A= + EA
         A= - EA
         A= * EA
         A= / EA
